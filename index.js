@@ -6,6 +6,7 @@ const addAuthor = addBookModal.querySelector('#author');
 const addPages = addBookModal.querySelector('#pages');
 const addReadStatus = addBookModal.querySelector('#isRead');
 const confirmBtn = addBookModal.querySelector('#confirm');
+const errorMsg = addBookModal.querySelector('.error-msg');
 
 
 const myLibrary = [];
@@ -16,8 +17,8 @@ function Book(title, author, pages, isRead){
     this.pages = pages,
     this.isRead = Boolean(isRead)
 }
-Book.prototype.read = function(){
-    this.isRead = true
+Book.prototype.toggleReadStatus = function(){
+    this.isRead = !this.isRead
 }
 
 function addBookToLibrary(title, author, pages, isRead){
@@ -27,21 +28,6 @@ function addBookToLibrary(title, author, pages, isRead){
 
     myLibrary.push(book);
 }
-// show the add book pop up
-addBookBtn.addEventListener("click", () => {
-    addBookModal.showModal();
-});
-
-// preventDefault is there so as not to submit the form to server
-confirmBtn.addEventListener("click", (event) => {
-    event.preventDefault(); 
-    addBookToLibrary(addTitle.value, addAuthor.value, addPages.value, addReadStatus.value);
-    addBookModal.close(addTitle.value);
-    addBookModal.close(addAuthor.value);
-    addBookModal.close(addPages.value);
-    addBookModal.close(addReadStatus.value);
-    displayBook();
-});
 
 function displayBook(){
     const card = document.createElement('div');
@@ -50,11 +36,11 @@ function displayBook(){
     const cardPages = document.createElement('div');
     const cardToggle = document.createElement('button');
     const cardDelete = document.createElement('button');
-
     card.classList.add('card');
     container.appendChild(card);
 
-    for (let book of myLibrary){
+    myLibrary.forEach((book, index) => {
+        card.setAttribute('data-id', index);
         let status = (book.isRead) ? "READ": "NOT READ";
         
         cardTitle.classList.add('title');
@@ -82,8 +68,65 @@ function displayBook(){
         cardDelete.classList.add('delete');
         cardDelete.textContent = `Delete`;
         card.appendChild(cardDelete);
-    }
+    })
 }
+
+container.addEventListener('click', (event) => {
+    if (event.target.classList.contains('delete')) {
+        const bookCard = event.target.closest('.card');
+        const bookIndex = parseInt(bookCard.getAttribute('data-id'));
+        myLibrary.splice(bookIndex, 1);
+        bookCard.remove();
+        const remainingCards = container.querySelectorAll('.card');
+        remainingCards.forEach((card, index) => {
+            card.setAttribute('data-id', index);
+        });
+    }
+});
+
+container.addEventListener('click', (event) => {
+    const bookCard = event.target.closest('.card');
+    if (event.target.classList.contains('toggle-button')) {
+        const bookIndex = parseInt(bookCard.getAttribute('data-id'));
+        const book = myLibrary[bookIndex];
+
+        book.toggleReadStatus();
+
+        const toggleButton = event.target;
+        if (book.isRead) {
+            toggleButton.textContent = "READ";
+            toggleButton.classList.remove('not-read');
+        } else {
+            toggleButton.textContent = "NOT READ";
+            toggleButton.classList.add('not-read');
+        }
+    }
+});
+
+addBookBtn.addEventListener('click', () => {
+    addBookModal.showModal();
+});
+
+confirmBtn.addEventListener('click', (event) => {
+    event.preventDefault(); 
+
+    if (!addTitle.value.trim() || !addAuthor.value.trim() || !addPages.value.trim() || !addReadStatus.value) {
+        errorMsg.textContent = "Please fill in all fields before submitting!";
+        return;
+    }
+    else{
+        errorMsg.textContent = "";
+    }
+    addBookToLibrary(addTitle.value, addAuthor.value, addPages.value, addReadStatus.value);
+    addBookModal.close();
+    displayBook();
+
+    addTitle.value = "";
+    addAuthor.value = "";
+    addPages.value = "";
+    addReadStatus.value = "";
+    
+});
 
 
 
