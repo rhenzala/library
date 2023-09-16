@@ -28,6 +28,10 @@ button{
     font-family: inherit;
     font-size: 16px;
     font-weight: 500;
+    color: var(--white);
+    outline: none;
+    border: none;
+    border-radius: 5px;
     width: 150px;
     padding: 8px 12px;
 }
@@ -38,7 +42,10 @@ button:hover{
 header{
     background-color: var(--tertiary-bg);
     color: var(--white);
-    height: 60px;
+    height: 70px;
+    padding: 1rem 2rem;
+    display: grid;
+    align-items: center;
 }
 .logo{
     font-size: 28px;
@@ -52,9 +59,13 @@ main{
     gap: 1rem;
 }
 main > button{
+    background-color: var(--secondary-bg);
     font-weight: 700;
     font-size: 20px;
     padding: 12px 16px;
+}
+main > button:hover{
+    background-color: rgba(23, 133, 130, 0.8);
 }
 
 .card-container{
@@ -81,5 +92,13 @@ main > button{
 .card button{
     width: 100%;
 }
-
+.toggle-button{
+    background-color: rgb(51, 190, 51);
+}
+.notRead{
+    background-color: rgb(248, 56, 56);
+}
+.delete{
+    background-color: rgb(168, 8, 8);
+}
 
