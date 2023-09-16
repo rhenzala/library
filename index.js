@@ -1,5 +1,12 @@
 const container = document.querySelector('.card-container');
 const addBookBtn = document.getElementById('addBook');
+const addBookModal = document.getElementById('addBookModal');
+const addTitle = addBookModal.querySelector('#title');
+const addAuthor = addBookModal.querySelector('#author');
+const addPages = addBookModal.querySelector('#pages');
+const addReadStatus = addBookModal.querySelector('#isRead');
+const confirmBtn = addBookModal.querySelector('#confirm');
+
 
 const myLibrary = [];
 
@@ -14,14 +21,27 @@ Book.prototype.read = function(){
 }
 
 function addBookToLibrary(title, author, pages, isRead){
+    isRead = (isRead === "yes") ? true: false;
+    pages = Number(pages);
     const book = new Book(title, author, pages, isRead);
 
     myLibrary.push(book);
 }
-addBookToLibrary("How To Not", "Someone", 78, true)
-addBookToLibrary("Lorem Ipsum", "Lorem", 842, true)
-addBookToLibrary("How I created Linux", "Linus Tech Tips", 690, false)
-addBookToLibrary("brrrrt brrrt", "A-10", 420, true)
+// show the add book pop up
+addBookBtn.addEventListener("click", () => {
+    addBookModal.showModal();
+});
+
+// preventDefault is there so as not to submit the form to server
+confirmBtn.addEventListener("click", (event) => {
+    event.preventDefault(); 
+    addBookToLibrary(addTitle.value, addAuthor.value, addPages.value, addReadStatus.value);
+    addBookModal.close(addTitle.value);
+    addBookModal.close(addAuthor.value);
+    addBookModal.close(addPages.value);
+    addBookModal.close(addReadStatus.value);
+    displayBook();
+});
 
 function displayBook(){
     const card = document.createElement('div');
@@ -37,11 +57,11 @@ function displayBook(){
     for (let book of myLibrary){
         let status = (book.isRead) ? "READ": "NOT READ";
         
-        cardTitle.classList.add('title')
+        cardTitle.classList.add('title');
         cardTitle.textContent = `Title: ${book.title}`;
         card.appendChild(cardTitle);
 
-        cardAuthor.classList.add('author')
+        cardAuthor.classList.add('author');
         cardAuthor.textContent = `Author: ${book.author}`;
         card.appendChild(cardAuthor);
 
@@ -50,16 +70,22 @@ function displayBook(){
         card.appendChild(cardPages);
 
         cardToggle.classList.add('toggle-button');
+        if (!book.isRead){
+            cardToggle.classList.add('not-read');
+        } 
+        else{
+            cardToggle.classList.remove('not-read');
+        }
         cardToggle.textContent = `${status}`;
         card.appendChild(cardToggle);
 
-        cardDelete.classList.add('delete')
+        cardDelete.classList.add('delete');
         cardDelete.textContent = `Delete`;
         card.appendChild(cardDelete);
     }
 }
 
-displayBook();
+
 
 
 
