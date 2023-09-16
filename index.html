@@ -18,19 +18,12 @@
     </header>
     <main>
         <button id="addBook">+ Add Book</button>
-        <div class="card-container">
-            <div class="card">
-                <div class="title">Title: The Retard</div>
-                <div class="author">Author: Niggerman</div>
-                <div class="pages">Pages: 420</div>
-                <button class="toggle-button">READ</button>
-                <button class="delete">Delete</button>
-            </div>
-        </div>
+        <div class="card-container"></div>
     </main>
     <dialog id="addBookModal">
         <form>
             <h1>Add New Book</h1>
+            <div class="error-msg"></div>
             <label for="title"> Title of Book:
                 <input type="text" id="title" minlength="1">
             </label>
