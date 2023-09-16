@@ -132,6 +132,7 @@ form{
     padding: 1.5rem;
     justify-content: space-around;
     gap: 1rem;
+    position: relative;
 }
 form h1{
     text-align: center;
@@ -152,5 +153,11 @@ form div{
     justify-content: flex-end;
     gap: 10px;
 }
-
+.error-msg{
+    position: absolute;
+    top: 15%;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--red);
+}
 
