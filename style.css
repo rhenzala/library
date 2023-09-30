@@ -109,12 +109,11 @@ main > button:hover{
 dialog{
     background-color: var(--white);
     width: min(75%, 400px);
-    height: 450px;
+    height: 500px;
     border: 1px solid var(--accent-bg);
     border-radius: none;
     outline: none;
     box-shadow: 1px 1px 3px var(--accent-bg);
-
     margin: 0 auto;
     position: fixed;
     top: 20%;
@@ -132,14 +131,13 @@ form{
     padding: 1.5rem;
     justify-content: space-around;
     gap: 1rem;
-    position: relative;
 }
 form h1{
     text-align: center;
 }
 input,
 select{
-    height: 30px;
+    height: 36px;
     padding: 8px;
     border: 1px solid var(--accent-bg);
     outline: none;
@@ -154,8 +152,8 @@ form div{
     gap: 10px;
 }
 .error-msg{
-    position: absolute;
-    top: 15%;
+    align-self: center;
+    height: 20px;
     font-size: 14px;
     font-weight: 700;
     color: var(--red);
