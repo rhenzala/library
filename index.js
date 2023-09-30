@@ -7,22 +7,24 @@ const addPages = addBookModal.querySelector('#pages');
 const addReadStatus = addBookModal.querySelector('#isRead');
 const confirmBtn = addBookModal.querySelector('#confirm');
 const errorMsg = addBookModal.querySelector('.error-msg');
-
+const cancelBtn = addBookModal.querySelector('#cancel');
 
 const myLibrary = [];
 
-function Book(title, author, pages, isRead){
-    this.title = title,
-    this.author = author,
-    this.pages = pages,
-    this.isRead = Boolean(isRead)
-}
-Book.prototype.toggleReadStatus = function(){
-    this.isRead = !this.isRead
+class Book {
+    constructor(title, author, pages, isRead){
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.isRead = Boolean(isRead);
+    }
+    toggleReadStatus(){
+        this.isRead = !this.isRead;
+    }
 }
 
 function addBookToLibrary(title, author, pages, isRead){
-    isRead = (isRead === "yes") ? true: false;
+    isRead = (isRead === 'yes') ? true: false;
     pages = Number(pages);
     const book = new Book(title, author, pages, isRead);
 
@@ -41,7 +43,7 @@ function displayBook(){
 
     myLibrary.forEach((book, index) => {
         card.setAttribute('data-id', index);
-        let status = (book.isRead) ? "READ": "NOT READ";
+        let status = (book.isRead) ? 'READ': 'NOT READ';
         
         cardTitle.classList.add('title');
         cardTitle.textContent = `Title: ${book.title}`;
@@ -94,10 +96,10 @@ container.addEventListener('click', (event) => {
 
         const toggleButton = event.target;
         if (book.isRead) {
-            toggleButton.textContent = "READ";
+            toggleButton.textContent = 'READ';
             toggleButton.classList.remove('not-read');
         } else {
-            toggleButton.textContent = "NOT READ";
+            toggleButton.textContent = 'NOT READ';
             toggleButton.classList.add('not-read');
         }
     }
@@ -111,22 +113,25 @@ confirmBtn.addEventListener('click', (event) => {
     event.preventDefault(); 
 
     if (!addTitle.value.trim() || !addAuthor.value.trim() || !addPages.value.trim() || !addReadStatus.value) {
-        errorMsg.textContent = "Please fill in all fields before submitting!";
+        errorMsg.textContent = 'Please fill in all fields before submitting!';
         return;
     }
     else{
-        errorMsg.textContent = "";
+        errorMsg.textContent = '';
     }
     addBookToLibrary(addTitle.value, addAuthor.value, addPages.value, addReadStatus.value);
     addBookModal.close();
     displayBook();
 
-    addTitle.value = "";
-    addAuthor.value = "";
-    addPages.value = "";
-    addReadStatus.value = "";
-    
+    addTitle.value = '';
+    addAuthor.value = '';
+    addPages.value = '';
+    addReadStatus.value = '';
 });
+
+cancelBtn.addEventListener('click', () => {
+    errorMsg.textContent = '';
+})
 
 
 
