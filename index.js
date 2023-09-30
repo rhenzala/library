@@ -16,7 +16,7 @@ class Book {
         this.title = title;
         this.author = author;
         this.pages = pages;
-        this.isRead = Boolean(isRead);
+        this.isRead = isRead;
     }
     toggleReadStatus(){
         this.isRead = !this.isRead;
@@ -25,7 +25,7 @@ class Book {
 
 function addBookToLibrary(title, author, pages, isRead){
     isRead = (isRead === 'yes') ? true: false;
-    pages = Number(pages);
+    pages = Number(pages)
     const book = new Book(title, author, pages, isRead);
 
     myLibrary.push(book);
@@ -132,8 +132,3 @@ confirmBtn.addEventListener('click', (event) => {
 cancelBtn.addEventListener('click', () => {
     errorMsg.textContent = '';
 })
-
-
-
-
-
