@@ -60,7 +60,7 @@ main{
     gap: 2rem;
 }
 main > button{
-    background-color: var(--secondary-bg);
+    background-color: var(--black);
     font-weight: 700;
     font-size: 20px;
     padding: 12px 16px;
