@@ -34,8 +34,14 @@ function addBookToLibrary(title, author, pages, isRead){
 function displayBook(){
     const card = document.createElement('div');
     const cardTitle = document.createElement('div');
+    const bookTitle = document.createElement('h3');
+    const titleLabel = document.createElement('p');
     const cardAuthor = document.createElement('div');
+    const bookAuthor = document.createElement('h3');
+    const authorLabel = document.createElement('p');
     const cardPages = document.createElement('div');
+    const bookPages = document.createElement('h3');
+    const pageLabel = document.createElement('p');
     const cardToggle = document.createElement('button');
     const cardDelete = document.createElement('button');
     card.classList.add('card');
@@ -46,16 +52,26 @@ function displayBook(){
         let status = (book.isRead) ? 'READ': 'NOT READ';
         
         cardTitle.classList.add('title');
-        cardTitle.textContent = `Title: ${book.title}`;
-        card.appendChild(cardTitle);
+        bookTitle.textContent = `${book.title}`;
+        cardTitle.appendChild(bookTitle);
+        titleLabel.textContent = "Title";
+        cardTitle.appendChild(titleLabel);
+        card.appendChild(cardTitle)
+
 
         cardAuthor.classList.add('author');
-        cardAuthor.textContent = `Author: ${book.author}`;
-        card.appendChild(cardAuthor);
+        bookAuthor.textContent = `${book.author}`;
+        cardAuthor.appendChild(bookAuthor);
+        authorLabel.textContent = "Author";
+        cardAuthor.appendChild(authorLabel);
+        card.appendChild(cardAuthor)
 
         cardPages.classList.add('pages')
-        cardPages.textContent = `Pages: ${book.pages}`;
-        card.appendChild(cardPages);
+        bookPages.textContent = `${book.pages}`;
+        cardPages.appendChild(bookPages);
+        pageLabel.textContent = "Pages";
+        cardPages.appendChild(pageLabel);
+        card.appendChild(cardPages)
 
         cardToggle.classList.add('toggle-button');
         if (!book.isRead){
